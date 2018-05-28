@@ -82,12 +82,6 @@
                     <h1><strong>Coin</strong>
                         All  currency coin information
                     </h1>
-                    <!--<div class="description">-->
-                    <!--<p>-->
-                    <!--This is a free responsive flat registration form made with Bootstrap.-->
-                    <!--Download it on <a href="#"><strong>AZMIND</strong></a>, customize and use it as you like!-->
-                    <!--</p>-->
-                    <!--</div>-->
                     <div id="div1">
 
                     </div>
@@ -123,7 +117,7 @@
         }
     };
 
-    var dappContactAddress = "n1pGdc4YXVMLCQWwxQW1jGyeRYtC7TxTM93";
+    var dappContactAddress = "n1fGnbt8BFFZWCEhhNxSAskKJE5SCd2vsLA";
     var nebulas = require("nebulas"), Account = nebulas.Account, neb = new nebulas.Neb();
     neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"))
     var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
@@ -176,30 +170,40 @@
             var v1 = JSON.parse(result);
             console.log(resp);
             console.log(v1);
-            var arrs = new Array()
-            for(i = 0;i<v1.length;i++){
-                var coinInfo = new CoinItem();
-                coinInfo.name = v1[i].name;
-                coinInfo.time = v1[i].time;
-                coinInfo.price = v1[i].price;
-                coinInfo.place = v1[i].place;
-                arrs.push(coinInfo)
-            }
+//            var arrs = new Array()
+//            for(i = 0;i<v1.length;i++){
+//                var coinInfo = new CoinItem();
+//                coinInfo.name = v1[i].name;
+//                coinInfo.time = v1[i].time;
+//                coinInfo.price = v1[i].price;
+//                coinInfo.place = v1[i].place;
+//                arrs.push(coinInfo)
+//            }
             addTable(arrs);
         }).catch(function (err) {
             console.log("error :" + err.message);
         })
     }
 
-    function addTable(arrs) {
-        var arrnsa = new Array();
-        var arrss = new Array();
-        for(i=0;i<arrs.length;i++){
-            arrss[1] = arrs[i].name;
-            arrss[2] = arrs[i].time;
-            arrss[3] = arrs[i].price;
-            arrss[4] = arrs[i].place;
+    function addTable(v1) {
+
+        var arrs = new Array()
+          for(i = 0;i<v1.length;i++){
+            var coinInfo = new CoinItem();
+            coinInfo.name = v1[i].name;
+            coinInfo.time = v1[i].time;
+            coinInfo.price = v1[i].price;
+            coinInfo.place = v1[i].place;
+            arrs.push(coinInfo)
         }
+//        var arrnsa = new Array();
+//        var arrss = new Array();
+//        for(i=0;i<arrs.length;i++){
+//            arrss[1] = arrs[i].name;
+//            arrss[2] = arrs[i].time;
+//            arrss[3] = arrs[i].price;
+//            arrss[4] = arrs[i].place;
+//        }
 
 
         var arrsname = new Array();
@@ -208,7 +212,7 @@
         arrsname[3] = "价格";
         arrsname[4] = "所在交易市场";
         var row1 = arrs.length + 1;//获取属性值
-        var col1 = arrss.length - 1;//获取属性值
+        var col1 = arrsname.length-1;//获取属性值
         var div1 = document.getElementById("div1");
         var tab = "<table border='1' bordercolor='#fff' width='500' height='30'>";
         //循环行
@@ -219,7 +223,7 @@
                 if (i == 1) {
                     tab += "<td>" + arrsname[j] + "</td>";
                 } else {
-                    tab += "<td>" + arrss[j] + "</td>";
+                    tab += "<td>" + arrs[j] + "</td>";
                 }
             }
             tab += "</tr>";
