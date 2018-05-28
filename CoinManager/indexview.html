@@ -79,15 +79,18 @@
                     </div>
                 </div>
                 <div class="col-sm-7 text">
-                    <h1><strong>Coin</strong> Flat Registration Form</h1>
-                    <div class="description">
-                        <p>
-                            This is a free responsive flat registration form made with Bootstrap.
-                            Download it on <a href="#"><strong>AZMIND</strong></a>, customize and use it as you like!
-                        </p>
+                    <h1><strong>Coin</strong>
+                        All  currency coin information
+                    </h1>
+                    <!--<div class="description">-->
+                    <!--<p>-->
+                    <!--This is a free responsive flat registration form made with Bootstrap.-->
+                    <!--Download it on <a href="#"><strong>AZMIND</strong></a>, customize and use it as you like!-->
+                    <!--</p>-->
+                    <!--</div>-->
+                    <div id="div1">
+
                     </div>
-                行:<input type="text" id="h"/>&nbsp;
-                列:<input type="text" id="l"/><br/>
                 </div>
             </div>
         </div>
@@ -120,13 +123,13 @@
         }
     };
 
-    var dappContactAddress = "n1f3iEkGifn6e2wGmX2vGYgXsJuADTJ6wQs";
+    var dappContactAddress = "n1pGdc4YXVMLCQWwxQW1jGyeRYtC7TxTM93";
     var nebulas = require("nebulas"), Account = nebulas.Account, neb = new nebulas.Neb();
     neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"))
     var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
     var nebPay = new NebPay();
     var serialNumber;
-    get("aaa");
+    get("B");
     $(".btn").click(function () {
         var coinname = $(".form-first-name");
         var time = $(".form-last-name");
@@ -150,7 +153,7 @@
                 console.log("thecallback is " + resp);
                 console.log(resp.result);
 //                if (result == "" + nameVal + "") {
-                get(nameVal);
+//                get(nameVal);
 //                }
             }
         })
@@ -171,24 +174,58 @@
         neb.api.call(from, dappContactAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
             var result = resp.result;
             var v1 = JSON.parse(result);
-            console.log(result);
+            console.log(resp);
             console.log(v1);
-//            {"result":{"result":
-// "{\"name\":\"aaa\",\"time\":\"a\",\"price\":\"ss\",\"place\":\"aas\"}
-// ","execute_err":"insufficient balance","estimate_gas":"20210"}}
-            var coinInfo = new CoinItem();
-            coinInfo.name = v1.name;
-            coinInfo.time = v1.time;
-            coinInfo.price = v1.price;
-            coinInfo.place = v1.place;
-
             var arrs = new Array()
-            arrs[0] = coinInfo;
-//            innerlist(arrs);
-            addTable();
+            for(i = 0;i<v1.length;i++){
+                var coinInfo = new CoinItem();
+                coinInfo.name = v1[i].name;
+                coinInfo.time = v1[i].time;
+                coinInfo.price = v1[i].price;
+                coinInfo.place = v1[i].place;
+                arrs.push(coinInfo)
+            }
+            addTable(arrs);
         }).catch(function (err) {
             console.log("error :" + err.message);
         })
+    }
+
+    function addTable(arrs) {
+        var arrnsa = new Array();
+        var arrss = new Array();
+        for(i=0;i<arrs.length;i++){
+            arrss[1] = arrs[i].name;
+            arrss[2] = arrs[i].time;
+            arrss[3] = arrs[i].price;
+            arrss[4] = arrs[i].place;
+        }
+
+
+        var arrsname = new Array();
+        arrsname[1] = "币种";
+        arrsname[2] = "时间";
+        arrsname[3] = "价格";
+        arrsname[4] = "所在交易市场";
+        var row1 = arrs.length + 1;//获取属性值
+        var col1 = arrss.length - 1;//获取属性值
+        var div1 = document.getElementById("div1");
+        var tab = "<table border='1' bordercolor='#fff' width='500' height='30'>";
+        //循环行
+        for (var i = 1; i <= row1; i++) {
+            tab += "<tr>";
+            //循环列
+            for (var j = 1; j <= col1; j++) {
+                if (i == 1) {
+                    tab += "<td>" + arrsname[j] + "</td>";
+                } else {
+                    tab += "<td>" + arrss[j] + "</td>";
+                }
+            }
+            tab += "</tr>";
+        }
+        tab += "</table>"
+        div1.innerHTML = tab;
     }
 </script>
 </body>
