@@ -117,7 +117,7 @@
         }
     };
 
-    var dappContactAddress = "n1fGnbt8BFFZWCEhhNxSAskKJE5SCd2vsLA";
+    var dappContactAddress = "n1pGdc4YXVMLCQWwxQW1jGyeRYtC7TxTM93";
     var nebulas = require("nebulas"), Account = nebulas.Account, neb = new nebulas.Neb();
     neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"))
     var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
@@ -156,62 +156,34 @@
     function get(nameVal) {
         var from = Account.NewAccount().getAddressString();
         var value = "0";
-        var nonce = "0"
-        var gas_price = "1000000"
-        var gas_limit = "2000000"
+        var nonce = "0";
+        var gas_price = "1000000";
+        var gas_limit = "2000000";
         var callFunction = "get";
         var callArgs = "[\"" + nameVal + "\"]";
         var contract = {
             "function": callFunction,
-            "args": callArgs,
-        }
+            "args": callArgs
+        };
         neb.api.call(from, dappContactAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
             var result = resp.result;
             var v1 = JSON.parse(result);
-            console.log(resp);
             console.log(v1);
-//            var arrs = new Array()
-//            for(i = 0;i<v1.length;i++){
-//                var coinInfo = new CoinItem();
-//                coinInfo.name = v1[i].name;
-//                coinInfo.time = v1[i].time;
-//                coinInfo.price = v1[i].price;
-//                coinInfo.place = v1[i].place;
-//                arrs.push(coinInfo)
-//            }
-            addTable(arrs);
+            addTable(v1);
         }).catch(function (err) {
             console.log("error :" + err.message);
         })
     }
 
     function addTable(v1) {
-
-        var arrs = new Array()
-          for(i = 0;i<v1.length;i++){
-            var coinInfo = new CoinItem();
-            coinInfo.name = v1[i].name;
-            coinInfo.time = v1[i].time;
-            coinInfo.price = v1[i].price;
-            coinInfo.place = v1[i].place;
-            arrs.push(coinInfo)
-        }
-//        var arrnsa = new Array();
-//        var arrss = new Array();
-//        for(i=0;i<arrs.length;i++){
-//            arrss[1] = arrs[i].name;
-//            arrss[2] = arrs[i].time;
-//            arrss[3] = arrs[i].price;
-//            arrss[4] = arrs[i].place;
-//        }
-
-
+        var arrs= new Array();
+        arrs.push(v1);
         var arrsname = new Array();
         arrsname[1] = "币种";
         arrsname[2] = "时间";
         arrsname[3] = "价格";
         arrsname[4] = "所在交易市场";
-        var row1 = arrs.length + 1;//获取属性值
+        var row1 = v1.length + 1;//获取属性值
         var col1 = arrsname.length-1;//获取属性值
         var div1 = document.getElementById("div1");
         var tab = "<table border='1' bordercolor='#fff' width='500' height='30'>";
@@ -223,7 +195,24 @@
                 if (i == 1) {
                     tab += "<td>" + arrsname[j] + "</td>";
                 } else {
-                    tab += "<td>" + arrs[j] + "</td>";
+//                    console.log(v1[j].time);
+                    console.log(arrs);
+
+                    var strs = v1[0];
+                    console.log(strs);
+                    tab += "<td>" + v1[i].name + "</td>";
+//                     if(j == 1){
+//                          tab += "<td>" + v1[j].name + "</td>";
+//                     }else if(j == 2){
+//                          tab += "<td>" + v1[j].time + "</td>";
+//                     }else if(j == 3){
+//                          tab += "<td>" + v1[j].price + "</td>";
+//                     }else if(j == 4){
+//                          tab += "<td>" + v1[j].place + "</td>";
+//                     }else {
+//                            tab += "<td>" + v1[j].name + "</td>";
+//                     }
+
                 }
             }
             tab += "</tr>";
