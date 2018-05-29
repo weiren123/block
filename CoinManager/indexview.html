@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-sm-7 text">
                     <h1><strong>Coin</strong>
-                        All  currency coin information
+                        All currency coin information
                     </h1>
                     <div id="div1">
 
@@ -169,38 +169,51 @@
             var result = resp.result;
             var v1 = JSON.parse(result);
             console.log(v1);
-            addTable(v1);
+            var v1s = new Array();
+            for (var i = 0; i < v1.length; i++) {
+                var coinItem = new CoinItem();
+                coinItem.name = v1[i].name;
+                coinItem.time = v1[i].time;
+                coinItem.price = v1[i].price
+                coinItem.place = v1[i].place;
+                v1s.push(coinItem);
+            }
+            addTable(v1s);
         }).catch(function (err) {
             console.log("error :" + err.message);
         })
     }
 
     function addTable(v1) {
-        var arrs= new Array();
-        arrs.push(v1);
+        console.log(v1);
         var arrsname = new Array();
-        arrsname[1] = "币种";
-        arrsname[2] = "时间";
-        arrsname[3] = "价格";
-        arrsname[4] = "所在交易市场";
+        arrsname[0] = "币种";
+        arrsname[1] = "时间";
+        arrsname[2] = "价格";
+        arrsname[3] = "所在交易市场";
         var row1 = v1.length + 1;//获取属性值
-        var col1 = arrsname.length-1;//获取属性值
+        var col1 = arrsname.length - 1;//获取属性值
         var div1 = document.getElementById("div1");
         var tab = "<table border='1' bordercolor='#fff' width='500' height='30'>";
         //循环行
-        for (var i = 1; i <= row1; i++) {
+        for (var i = 0; i <= row1; i++) {
             tab += "<tr>";
             //循环列
-            for (var j = 1; j <= col1; j++) {
-                if (i == 1) {
+            for (var j = 0; j <= col1; j++) {
+                if (i == 0) {
                     tab += "<td>" + arrsname[j] + "</td>";
-                } else {
-//                    console.log(v1[j].time);
-                    console.log(arrs);
 
-                    var strs = v1[0];
-                    console.log(strs);
-                    tab += "<td>" + v1[i].name + "</td>";
+                } else {
+                    setTimeout(function () {
+                        var srts = v1[i].name;
+                        console.log(srts);
+                    }, 3000)
+//                    setTimeout(function() {
+//				var srts = v1[i].name;
+//                    console.log(srts);
+//			}, 1000);
+
+//                    tab += "<td>" + srts + "</td>";
 //                     if(j == 1){
 //                          tab += "<td>" + v1[j].name + "</td>";
 //                     }else if(j == 2){
