@@ -215,8 +215,6 @@
             alert("地址或密码的格式不正确")
             return
         }
-//        Uaddress = addressVal
-//        UPassword = addressPVal
         // 地址和密码格式都正确,发送请求
         var from = Account.NewAccount().getAddressString();
         var value = "0";
@@ -236,7 +234,6 @@
             console.log(result);
             if (result == "\"1\"") {
                 console.log(result);
-//                alert("登陆成功")
                 window.location.href = "indexview.html";
             } else {
                 console.log(result);
@@ -260,7 +257,7 @@
         }
         if (!testPassword(addressPVal)) {
             addressP.addClass("changeBorder")
-            alert("地址或密码的格式不正确")
+            alert("地址或密码的格式不正确,密码应为6~18位的字母与数字的组合")
             return
         }
         if (!testWallte()) {
@@ -273,85 +270,15 @@
             var contract = {
                 "function": callFunction,
                 "args": callArgs
-            }
+            };
              serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
             listener: function (resp) {
                 console.log("thecallback is " + resp)
             }
         });
-//            neb.api.call(to, value, contract).then(function (resp) {
-//                var result = resp.result;
-//                console.log(result);
-//                alert("注册成功")
-//            }).catch(function (err) {
-//                console.log("error :" + err.message);
-//            })
         }
         }
-    )
-    //    // ---------------------------监听函数------------------------
-    //    function regist(res) {
-    //        console.log(res);
-    //        var txhash = res.txhash;
-    //        console.log(txhash)
-    //        if (txhash) {
-    //            testTransitionStatus(txhash, function () {
-    //                $(".wait").fadeOut(10)
-    //                tips("注册成功", "green", 1000)
-    //                setTimeout(function () {
-    //                    window.location.reload(true);
-    //                }, 1500)
-    //
-    //            })
-    //        }
-    //    }
-    //
-    //    // 登录监听
-    //    function login(res) {
-    //        var result = res.result
-    //        console.log(res)
-    //        console.log(result)
-    //        if (result === "\"0\"") {
-    //            tips("登录成功")
-    //            // 将地址和密码存入sessionStorage
-    //            sessionStorage.setItem("password", UPassword);
-    //            sessionStorage.setItem("address", Uaddress);
-    //            setTimeout(function () {
-    //                window.location.href = "./show.html";
-    //            }, 500)
-    //        } else if (result === "\"1\"") {
-    //            tips("密码错误", "red")
-    //        } else if (result === "\"2\"") {
-    //            tips("此地址未注册", "orange")
-    //        }
-    //    }
-    // ---------------------------功能函数-------------------------
-    //    function testTransitionStatus(txhash, callback) {
-    //        timer = setInterval(function () {
-    //            $(".wait").fadeIn(500)
-    //            neb.api.getTransactionReceipt({hash: txhash}).then(function (res) {
-    //                if (res.status === 1) {
-    //                    clearInterval(timer)
-    //                    if (callback) {
-    //                        callback()
-    //                    }
-    //                    return
-    //                }
-    //            })
-    //        }, 2000)
-    //    }
-
-    //    function tips(text, background, time) {
-    //        var html = $(".g-oks");
-    //        html.html(text)
-    //        background = background || "green"
-    //        time = time || 1000
-    //        html.css("backgroundColor", background)
-    //        $(".g-oks").fadeIn(500);
-    //        setTimeout(function () {
-    //            $(".g-oks").fadeOut(1000)
-    //        }, time)
-    //    }
+    );
 
     function testPassword(pwd) {
         var pat = /^[a-zA-Z0-9]{6,18}$/;

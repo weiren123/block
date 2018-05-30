@@ -17,7 +17,6 @@
 </head>
 
 <body>
-<!-- Top content -->
 <div class="top-content">
     <div class="inner-bg">
         <div class="container">
@@ -35,7 +34,6 @@
                         <div class="form-top-divider"></div>
                     </div>
                     <div class="form-bottom">
-                        <!-- <form role="form" action="" method="post" class="registration-form">-->
                         <div class="form-group">
                             <label class="sr-only" for="form-first-name">币种</label>
                             <input type="text" name="form-first-name" placeholder="币种:BTC"
@@ -60,7 +58,6 @@
                                    class="form-text form-control input-error">
                         </div>
                         <button type="" class="btn">记录</button>
-                        <!-- </form>-->
                     </div>
                 </div>
                 <div class="col-sm-7 text">
@@ -81,9 +78,6 @@
 </div>
 <script src="assets/js/ins.js"></script>
 <script src="assets/js/jquery-1.11.1.min.js"></script>
-<!--[if lt IE 10]>
-<!--<script src="assets/js/placeholder.js"></script>-->
-<![endif]-->
 <script src=lib/nebPay.js></script>
 <script src="lib/nebulas.js"></script>
 
@@ -95,19 +89,9 @@
 </div>
 <script>
     "use strict";
-    var CoinItem = function (text) {
-        if (text) {
-            var obj = JSON.parse(text);
-            this.name = obj.name;
-            this.time = obj.time;
-            this.price = obj.price;
-            this.place = obj.place;
-        }
-    };
-
-    var dappContactAddress = "n1pGdc4YXVMLCQWwxQW1jGyeRYtC7TxTM93";
+    var dappContactAddress = "n1jZpqYxPZCxkvNgQH4LNMVBwTDzje7UntQ";
     var nebulas = require("nebulas"), Account = nebulas.Account, neb = new nebulas.Neb();
-    neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"))
+    neb.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"))
     var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
     var nebPay = new NebPay();
     var serialNumber;
@@ -134,9 +118,6 @@
             listener: function (resp) {
                 console.log("thecallback is " + resp);
                 console.log(resp.result);
-//                if (result == "" + nameVal + "") {
-//                get(nameVal);
-//                }
             }
         })
     })
