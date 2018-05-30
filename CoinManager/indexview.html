@@ -14,21 +14,6 @@
     <link rel="stylesheet" href="assets/bootstrap/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/form-elements.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-    <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
-    <![endif]-->
-
-    <!-- Favicon and touch icons -->
-    <!--<link rel="shortcut icon" href="assetsfile/ico/favicon.png">-->
-    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assetsfile/ico/apple-touch-icon-144-precomposed.png">-->
-    <!--<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assetsfile/ico/apple-touch-icon-114-precomposed.png">-->
-    <!--<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assetsfile/ico/apple-touch-icon-72-precomposed.png">-->
-    <!--<link rel="apple-touch-icon-precomposed" href="assetsfile/ico/apple-touch-icon-57-precomposed.png">-->
-
 </head>
 
 <body>
@@ -81,6 +66,9 @@
                 <div class="col-sm-7 text">
                     <h1><strong>Coin</strong>
                         All currency coin information
+                    </h1>
+                     <h1 style="font-size: x-large">
+                        记录成功，请刷新页面
                     </h1>
                     <div id="div1">
 
@@ -169,16 +157,7 @@
             var result = resp.result;
             var v1 = JSON.parse(result);
             console.log(v1);
-            var v1s = new Array();
-            for (var i = 0; i < v1.length; i++) {
-                var coinItem = new CoinItem();
-                coinItem.name = v1[i].name;
-                coinItem.time = v1[i].time;
-                coinItem.price = v1[i].price
-                coinItem.place = v1[i].place;
-                v1s.push(coinItem);
-            }
-            addTable(v1s);
+            addTable(v1);
         }).catch(function (err) {
             console.log("error :" + err.message);
         })
@@ -186,6 +165,7 @@
 
     function addTable(v1) {
         console.log(v1);
+
         var arrsname = new Array();
         arrsname[0] = "币种";
         arrsname[1] = "时间";
@@ -204,28 +184,19 @@
                     tab += "<td>" + arrsname[j] + "</td>";
 
                 } else {
-                    setTimeout(function () {
-                        var srts = v1[i].name;
-                        console.log(srts);
-                    }, 3000)
-//                    setTimeout(function() {
-//				var srts = v1[i].name;
-//                    console.log(srts);
-//			}, 1000);
-
-//                    tab += "<td>" + srts + "</td>";
-//                     if(j == 1){
-//                          tab += "<td>" + v1[j].name + "</td>";
-//                     }else if(j == 2){
-//                          tab += "<td>" + v1[j].time + "</td>";
-//                     }else if(j == 3){
-//                          tab += "<td>" + v1[j].price + "</td>";
-//                     }else if(j == 4){
-//                          tab += "<td>" + v1[j].place + "</td>";
-//                     }else {
-//                            tab += "<td>" + v1[j].name + "</td>";
-//                     }
-
+                    if (i <= v1.length) {
+                        if (j == 0) {
+                            tab += "<td>" + v1[i-1].name + "</td>";
+                        } else if (j == 1) {
+                            tab += "<td>" + v1[i-1].time + "</td>";
+                        } else if (j == 2) {
+                            tab += "<td>" + v1[i-1].price + "</td>";
+                        } else if (j == 3) {
+                            tab += "<td>" + v1[i-1].place + "</td>";
+                        } else {
+                            tab += "<td>" + "" + "</td>";
+                        }
+                    }
                 }
             }
             tab += "</tr>";
